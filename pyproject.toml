@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fencewalk"
+dynamic = ["version"]
+description = "Local-first perimeter-audit workbench: evidence-labeled inventory, rubric scoring, bounded model pass, adjudication, fix tracking."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+fencewalk = "fencewalk.__main__:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "fencewalk.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+fencewalk = ["packs/*.json", "fixtures/reference-case/*", "fixtures/demo-scuba/*", "fixtures/github-org/*", "fixtures/dns-registrar/*", "fixtures/google-workspace/*", "templates/*.md"]

@@ -1,0 +1,553 @@
+{
+  "pack_id": "scuba-m365-v2.0.0",
+  "title": "CISA SCuBA M365 Secure Configuration Baselines (ScubaGear v2.0.0)",
+  "version": "2.0.0",
+  "source_citation": "CISA Secure Cloud Business Applications (SCuBA) Microsoft 365 baselines, as published with ScubaGear v2.0.0 (released Oct 22, 2026; https://github.com/cisagov/ScubaGear/releases/tag/v2.0.0), CC0 1.0 Universal",
+  "items": [
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.1.1v1",
+      "text": "Legacy authentication SHALL be blocked."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.2.1v1",
+      "text": "Users detected as high risk SHALL be blocked."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.2.2v1",
+      "text": "A notification SHOULD be sent to the administrator when high-risk users are detected."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.2.3v1",
+      "text": "Sign-ins detected as high-risk SHALL be blocked. License: Requires a Microsoft Entra ID P2 license"
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.1v1",
+      "text": "Phishing-resistant MFA SHALL be enforced for all users."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.2v2",
+      "text": "MFA SHALL be enforced for all users."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.3v2",
+      "text": "If Microsoft Authenticator is enabled, it SHALL be configured to show login context information."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.4v1",
+      "text": "The \"Authentication methods manage migration\" feature SHALL be set to \"Migration complete.\""
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.5v2",
+      "text": "The authentication methods of short message service (SMS), voice call, and email one-time passcode (OTP) SHALL be disabled."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.6v1",
+      "text": "Phishing-resistant MFA SHALL be required for highly privileged roles."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.7v1",
+      "text": "Managed devices SHOULD be required for authentication."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.8v1",
+      "text": "Managed devices SHOULD be required to register MFA."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.3.9v1",
+      "text": "Device code authentication SHOULD be blocked. License: Policies related to managed devices require Microsoft Intune."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.4.1v1",
+      "text": "Security logs SHALL be sent to the agency's security operations center for monitoring. License: An Azure subscription may be required to send logs to an external system, such as the agency's Security Information and Event Management (SIEM)."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.5.1v1",
+      "text": "Only administrators SHALL be allowed to register applications."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.5.2v1",
+      "text": "User consent to applications SHALL be restricted."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.5.3v1",
+      "text": "An administrative consent workflow SHALL be configured for applications."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.5.5v1",
+      "text": "Application password addition SHOULD be blocked."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.5.6v1",
+      "text": "Application password lifetime SHOULD be restricted to 180 days or less."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.5.7v1",
+      "text": "Application certificate lifetime SHOULD be restricted to 365 days or less."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.6.1v1",
+      "text": "User passwords SHALL NOT expire."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.1v1",
+      "text": "A minimum of two users and a maximum of eight users SHALL be provisioned with the Global Administrator role."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.2v1",
+      "text": "Privileged users SHALL be provisioned with finer-grained roles instead of the Global Administrator role."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.3v1",
+      "text": "Privileged users SHALL be provisioned cloud-only accounts separate from an on-premises directory or other federated identity providers."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.4v1",
+      "text": "Permanent active role assignments SHALL NOT be allowed for highly privileged roles."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.5v1",
+      "text": "Provisioning users to highly privileged roles SHALL NOT occur outside of a PAM system."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.6v1",
+      "text": "Activation of the Global Administrator role SHALL require approval."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.7v1",
+      "text": "Eligible and active highly privileged role assignments SHALL trigger an alert."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.8v1",
+      "text": "User activation of the Global Administrator role SHALL trigger an alert."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.7.9v1",
+      "text": "User activation of other highly privileged roles SHOULD trigger an alert. License: Policies MS.AAD.7.4v1, MS.AAD.7.5v1, MS.AAD.7.6v1, MS.AAD.7.7v1, MS.AAD.7.8v1, and MS.AAD.7.9v1 require a Microsoft Entra ID P2 license. However, a third-party Privileged Access Management (PAM) solution may also be used to satisfy the requirements. If a third-party solution is used, then a P2 license is not required for the respective policies."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.8.1v1",
+      "text": "Guest users SHOULD have limited or restricted access to Microsoft Entra ID directory objects."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.8.2v1",
+      "text": "Only users with the \"Guest Inviter\" role SHOULD be able to invite guest users."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.8.3v1",
+      "text": "Guest invites SHOULD only be allowed to be sent to specific external domains that have been authorized by the agency for legitimate business purposes."
+    },
+    {
+      "group": "Microsoft Entra ID",
+      "item_id": "MS.AAD.9.1v1",
+      "text": "Risky AI agents SHALL be blocked. License: Requires a Microsoft Entra ID P2 license and either Microsoft Agent 365 or Microsoft 365 E7."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.1.1v2",
+      "text": "Automatic forwarding to external domains SHALL be disabled."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.2.2v3",
+      "text": "An SPF policy SHALL be published for each domain that fails all non-approved senders."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.3.1v1",
+      "text": "DKIM SHOULD be enabled for all domains."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.4.1v1",
+      "text": "A DMARC policy SHALL be published for every second-level domain."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.4.2v1",
+      "text": "The DMARC message rejection option SHALL be p=reject."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.4.3v1",
+      "text": "The DMARC point of contact for aggregate reports SHALL include `reports@dmarc.cyber.dhs.gov`."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.4.4v1",
+      "text": "An agency point of contact SHOULD be included for aggregate and failure reports."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.5.1v1",
+      "text": "SMTP AUTH SHALL be disabled."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.6.1v1",
+      "text": "Contact folders SHALL NOT be shared with all domains."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.6.2v1",
+      "text": "Calendar details SHALL NOT be shared with all domains."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.7.1v1",
+      "text": "External sender warnings SHALL be implemented."
+    },
+    {
+      "group": "Exchange Online",
+      "item_id": "MS.EXO.13.1v1",
+      "text": "Mailbox auditing SHALL be enabled."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.1.1v1",
+      "text": "The \"Publish to Web\" feature SHOULD be disabled unless the agency mission requires the capability."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.2.1v1",
+      "text": "Guest user access to the Power BI tenant SHOULD be disabled unless the agency mission requires the capability."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.3.1v1",
+      "text": "The \"Invite external users to your organization\" feature SHOULD be disabled unless agency mission requires the capability."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.4.1v1",
+      "text": "Service principals with access to APIs SHOULD be restricted to specific security groups."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.4.2v1",
+      "text": "Service principals' ability to create and use profiles SHOULD be restricted to specific security groups."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.5.1v1",
+      "text": "ResourceKey-based authentication SHOULD be blocked unless a specific use case (e.g., streaming and/or \"push\" datasets) merits its use."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.6.1v1",
+      "text": "Python and R interactions SHOULD be disabled."
+    },
+    {
+      "group": "Power BI",
+      "item_id": "MS.POWERBI.7.1v1",
+      "text": "Sensitivity labels SHOULD be enabled for Power BI and employed for sensitive data per enterprise data protection policies. License: A Microsoft Purview Information Protection Premium P1 or Premium P2 license is required to apply or view Microsoft Information Protection sensitivity labels in Power BI. Azure Information Protection can be purchased either standalone or through one of the Microsoft licensing suites. See Microsoft Purview Information Protection service description for details. Microsoft Purview Information Protection sensitivity labels need to be migrated to the Microsoft Information Protection Unified Labeling platform to be used in Power BI. To apply labels to Power BI content and files, a user must have a Power BI Pro or Premium Per User (PPU) license, in addition to one of the previously mentioned Azure Information Protection licenses. Before enabling sensitivity labels on the agency's tenant, ensure sensitivity labels have been defined and published for relevant users and groups. See Create and configure sensitivity labels and their policies for details."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.1.1v1",
+      "text": "The ability to create production and sandbox environments SHALL be restricted to administrators."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.1.2v1",
+      "text": "The ability to create trial environments SHALL be restricted to administrators."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.2.1v1",
+      "text": "A DLP policy SHALL be created to restrict connector access in the default Power Platform environment."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.2.2v1",
+      "text": "Non-default environments SHOULD have at least one DLP policy."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.3.1v1",
+      "text": "Power Platform tenant isolation SHALL be enabled."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.3.2v1",
+      "text": "An inbound/outbound connection allowlist SHOULD be configured."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.4.1v1",
+      "text": "Content Security Policy (CSP) SHALL be enforced for model-driven and canvas Power Apps."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.5.1v1",
+      "text": "The ability to create Power Pages sites SHOULD be restricted to administrators."
+    },
+    {
+      "group": "Power Platform",
+      "item_id": "MS.POWERPLATFORM.6.1v1",
+      "text": "The \"Share with everyone\" feature SHOULD be disabled."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.1.1v1",
+      "text": "Emails with click-to-run file attachments SHALL be blocked including, at a minimum, .exe, .cmd, and .vbe files."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.1.2v1",
+      "text": "Email scanning SHALL be capable of reviewing emails after delivery."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.1.3v1",
+      "text": "Emails identified as containing malware SHALL be quarantined or dropped."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.1.4v1",
+      "text": "SharePoint, OneDrive, and Teams message attachments SHOULD be scanned for malware. License: Safe attachments require Defender for Office 365 Plan 1 or 2. These are included with E5 and G5 and are available as add-ons for E3 and G3."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.2.1v1",
+      "text": "User impersonation protection SHOULD be enabled for sensitive accounts."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.2.2v1",
+      "text": "Domain impersonation protection SHOULD be enabled for domains owned by the agency."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.2.3v1",
+      "text": "Domain impersonation protection SHOULD be added for key suppliers and partners."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.2.4v1",
+      "text": "User warnings, comparable to the user safety tips included with EOP, SHOULD be displayed. License: Impersonation protection and advanced phishing thresholds require Defender for Office 365 Plan 1 or 2. These are included with E5 and G5 and are available as add-ons for E3 and G3. As of January 2026, anti-phishing for user and domain impersonation and spoof intelligence are not yet available in M365 Government Community Cloud (GCC High) and Department of Defense (DoD) environments. See Platform features | Microsoft Learn for current offerings."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.3.1v1",
+      "text": "A DLP policy SHALL be configured to protect PII and sensitive information, as defined by the agency, blocking at a minimum: credit card numbers, U.S. Individual Taxpayer Identification Numbers (ITIN), and U.S. Social Security numbers (SSN)."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.3.2v1",
+      "text": "The DLP policy SHOULD be applied to Exchange, OneDrive, SharePoint, Teams chat, and Devices."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.3.3v1",
+      "text": "The action for the DLP policy SHOULD be set to block sharing sensitive information with everyone."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.3.4v1",
+      "text": "Notifications to inform users and help educate them on the proper use of sensitive information SHOULD be enabled in the DLP policy."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.3.5v1",
+      "text": "The DLP policy SHOULD include an action to block access to sensitive information by restricted applications License: DLP for Teams requires an E5 or G5 license. See Microsoft Purview Data Loss Prevention: Data Loss Prevention for Teams | Microsoft Learn for more information. However, this requirement can also be met through a third-party solution. If a third-party solution is used, then an E5 or G5 license is not required for the respective policies. DLP for Endpoint, needed for MS.SECURITYSUITE.3.5v1, requires an E5 or G5 license. See Get started with Endpoint data loss prevention - Microsoft Purview (compliance) | Microsoft Learn for more information. However, this requirement can also be met through a compliant third-party solution. If a third-party solution is used, then an E5 or G5 license is not required for the respective policies."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.4.1v1",
+      "text": "At a minimum, the following alerts SHALL be enabled:"
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.4.2v1",
+      "text": "The alerts SHOULD be sent to a monitored address or incorporated into a Security Information and Event Management (SIEM)."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.5.1v1",
+      "text": "Unified audit logging SHALL be enabled."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.5.2v1",
+      "text": "Audit logs SHALL be retained and searchable for a minimum of 3 months and retrievable for a minimum of 12 months. License: The creation of a custom audit log retention policy requires E5/G5 licenses or E3/G3 licenses with add-on compliance licenses. To maintain logs in M365 for longer than 180 days, the user generating the logs must have an Office 365 E5 or Microsoft 365 E5 license or a Microsoft Purview Suite (formerly known as Microsoft 365 E5 Compliance) or E5 eDiscovery and Audit add-on license."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.6.1v1",
+      "text": "Emails detected as spam and phishing SHALL NOT be delivered to the user's inbox."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.6.2v1",
+      "text": "Allowed domains SHALL NOT be added to inbound anti-spam protection policies."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.7.1v1",
+      "text": "URL comparison with a block-list SHOULD be enabled for URLs in emails, Teams messages, and Office documents."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.7.2v1",
+      "text": "Direct download links SHOULD be scanned for malware."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.7.3v1",
+      "text": "User click tracking SHOULD be enabled. License: Safe links require Defender for Office 365 Plan 1 or 2. These are included with E5 and G5 and are available as add-ons for E3 and G3."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.8.1v1",
+      "text": "IP allow lists SHOULD NOT be created."
+    },
+    {
+      "group": "Security Suite",
+      "item_id": "MS.SECURITYSUITE.8.2v1",
+      "text": "Safe lists SHOULD NOT be enabled."
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.1.1v1",
+      "text": "External sharing for SharePoint SHALL be limited to \"Existing guests\" or \"Only people in your organization.\""
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.1.2v1",
+      "text": "External sharing for OneDrive SHALL be limited to \"Existing guests\" or \"Only people in your organization.\""
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.1.3v1",
+      "text": "External sharing SHALL be restricted to approved external domains and/or users in approved security groups per interagency collaboration needs."
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.2.1v1",
+      "text": "File and folder default sharing scope SHALL be set to \"Specific people (only the people the user specifies).\""
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.2.2v1",
+      "text": "File and folder default sharing permissions SHALL be set to view only."
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.3.1v1",
+      "text": "Expiration days for \"Anyone\" links SHALL be set to 30 days or less."
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.3.2v1",
+      "text": "The allowable file and folder permissions for links SHALL be set to view only."
+    },
+    {
+      "group": "SharePoint Online and OneDrive",
+      "item_id": "MS.SHAREPOINT.3.3v2",
+      "text": "Reauthentication days for people who use a verification code SHALL be set to 30 days or less."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.1.1v1",
+      "text": "External meeting participants SHOULD NOT be enabled to request control of shared desktops or windows."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.1.2v2",
+      "text": "Anonymous users SHALL NOT be enabled to start Microsoft Teams meetings."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.1.3v1",
+      "text": "Anonymous users and dial-in callers SHOULD NOT be admitted automatically."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.1.4v1",
+      "text": "Internal users SHOULD be admitted to Microsoft Teams meetings automatically."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.1.5v1",
+      "text": "Dial-in users SHOULD NOT be enabled to bypass the lobby."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.1.6v1",
+      "text": "Meeting recording SHOULD be disabled."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.1.7v2",
+      "text": "\"Record an event\" SHOULD NOT be set to \"Always record.\""
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.2.1v2",
+      "text": "External access for users SHALL only be enabled on a per-domain basis."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.2.2v2",
+      "text": "Unmanaged users SHALL NOT be enabled to initiate contact with internal users."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.2.3v2",
+      "text": "Internal users SHOULD NOT be enabled to initiate contact with unmanaged users."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.4.1v1",
+      "text": "Microsoft Teams email integration SHALL be disabled."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.5.1v2",
+      "text": "Agencies SHOULD only allow installation of Microsoft applications approved by the agency."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.5.2v2",
+      "text": "Agencies SHOULD only allow installation of third-party applications approved by the agency."
+    },
+    {
+      "group": "Teams",
+      "item_id": "MS.TEAMS.5.3v2",
+      "text": "Agencies SHOULD only allow installation of custom applications approved by the agency."
+    }
+  ]
+}
