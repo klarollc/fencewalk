@@ -192,6 +192,34 @@ def _adjudications(db_path, run_id):
 
 
 class PacketTest(unittest.TestCase):
+    def test_packet_date_refusal_and_canonical_filename(self):
+        with TemporaryDirectory() as tmp:
+            db_path = _scratch_db(tmp)
+            with Served(db_path) as base:
+                url = base + "/model-pass/packet"
+                status, headers, body = _request(
+                    url, method="POST", fields={"date": "2026-11-19\r\n"},
+                )
+                self.assertEqual(status, 400)
+                self.assertIn("packet date must be a valid ISO date", body)
+                self.assertNotIn("Content-Disposition", headers)
+                self.assertEqual(_packets(db_path), [])
+                for date in ("2026-11-19", "20261119"):
+                    with self.subTest(date=date):
+                        status, headers, body = _request(
+                            url, method="POST", fields={"date": date},
+                        )
+                        self.assertEqual(status, 200)
+                        digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+                        self.assertEqual(
+                            headers["Content-Disposition"],
+                            f'attachment; filename="packet-2026-11-19-{digest[:8]}.md"',
+                        )
+                self.assertEqual(
+                    [packet["assembled_date"] for packet in _packets(db_path)],
+                    ["2026-11-19", "2026-11-19"],
+                )
+
     def test_assemble_returns_the_download_and_records_it(self):
         with TemporaryDirectory() as tmp:
             db_path = _scratch_db(tmp)
@@ -811,6 +839,39 @@ class FixStatusTest(unittest.TestCase):
 
 
 class VerifyNextTest(unittest.TestCase):
+    def test_legacy_text_seq_renders_escaped_and_keeps_appending(self):
+        with TemporaryDirectory() as tmp:
+            db_path = _scratch_db(tmp)
+            _, run_id = _record_run(db_path, FOUR_SECTION_OUTPUT)
+            store = Store(db_path)
+            try:
+                eng_id = store.get_engagement()["id"]
+                store.add_verify_next(eng_id, "7", "Known item", "why", "check")
+                self.assertIs(type(store.list_verify_next()[0]["seq"]), int)
+                store.conn.execute(
+                    "INSERT INTO verify_next"
+                    " (engagement_id, seq, unknown_text, why, cheapest_check)"
+                    " VALUES (?, ?, ?, ?, ?)",
+                    (eng_id, "<em>legacy</em>", "Legacy item", "why", "check"),
+                )
+                store.conn.commit()
+                with Served(db_path) as base:
+                    status, _, page = _request(base + f"/adjudication?run={run_id}")
+                    self.assertEqual(status, 200)
+                    self.assertIn("&lt;em&gt;legacy&lt;/em&gt;", page)
+                    self.assertNotIn("<em>legacy</em>", page)
+                    status, _, _ = _request(
+                        base + "/verify-next/new", method="POST",
+                        fields={"unknown": "New item", "why": "why", "check": "check"},
+                    )
+                    self.assertEqual(status, 303)
+                self.assertEqual(
+                    [item["seq"] for item in store.list_verify_next()],
+                    [7, 8, "<em>legacy</em>"],
+                )
+            finally:
+                store.close()
+
     def test_two_adds_take_sequences_1_and_2(self):
         with TemporaryDirectory() as tmp:
             db_path = _scratch_db(tmp)

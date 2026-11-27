@@ -45,7 +45,7 @@ class PackagingDeclarationTest(unittest.TestCase):
         self.assertIn('version = {attr = "fencewalk.__version__"}', text)
         self.assertNotIn('version = "0.1.0"', text)
         self.assertNotIn('version = "0.0.1"', text)
-        self.assertEqual(__version__, "0.6.1")
+        self.assertEqual(__version__, "0.6.2")
 
     def test_package_data_declared(self):
         text = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")

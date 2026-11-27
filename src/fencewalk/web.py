@@ -71,6 +71,7 @@ WILDCARD_BIND_HOSTS = ("0.0.0.0", "::")
 
 # The hidden form field that carries the per-process write token.
 TOKEN_FIELD = "token"
+MAX_POST_BYTES = 1_048_576
 
 NO_PACK_NOTE = (
     "No rubric pack loaded. Coverage appears once a pack is loaded"
@@ -1167,7 +1168,7 @@ def _applied_section(store):
     parts.append("<h3>Verify-next</h3>")
     if verify_next:
         items = [
-            f'<li><span class="mono">{i["seq"]}</span>'
+            f'<li><span class="mono">{_esc(i["seq"])}</span>'
             f' — {_esc(i["unknown_text"])}</li>'
             for i in verify_next
         ]
@@ -1502,7 +1503,12 @@ def _apply_packet(db_path, store, form):
         word_cap = int(word_cap_raw)
     except ValueError:
         raise WebRefusal("word cap must be a whole number")
-    assembled_date = _field(form, "date") or _today()
+    try:
+        assembled_date = datetime.date.fromisoformat(
+            _field(form, "date") or _today()
+        ).isoformat()
+    except ValueError:
+        raise WebRefusal("packet date must be a valid ISO date") from None
     try:
         text, pack = assemble_packet(
             db_path, pack_id=pack_id, word_cap=word_cap,
@@ -1661,8 +1667,13 @@ def _apply_add_verify_next(store, form):
         raise WebRefusal(
             "unknown, why, and cheapest check are required"
         )
-    existing = store.list_verify_next()
-    seq = max((item["seq"] for item in existing), default=0) + 1
+    existing = []
+    for item in store.list_verify_next():
+        try:
+            existing.append(int(item["seq"]))
+        except (TypeError, ValueError, OverflowError):
+            existing.append(0)
+    seq = max(existing, default=0) + 1
     store.add_verify_next(eng["id"], seq, unknown, why, check)
     return ("redirect", _adjudication_return(form))
 
@@ -1926,7 +1937,13 @@ def make_handler(db_path, bind_host=None, bind_port=None, token=None):
                 length = int(self.headers.get("Content-Length") or 0)
             except ValueError:
                 length = 0
-            raw = self.rfile.read(length) if length > 0 else b""
+            if length > MAX_POST_BYTES:
+                self._send_413()
+                return
+            raw = self.rfile.read(min(max(0, length), MAX_POST_BYTES + 1))
+            if len(raw) > MAX_POST_BYTES:
+                self._send_413()
+                return
             form = parse_qs(
                 raw.decode("utf-8", errors="replace"),
                 keep_blank_values=True,
@@ -1969,6 +1986,13 @@ def make_handler(db_path, bind_host=None, bind_port=None, token=None):
             self._send(
                 303, "text/plain; charset=utf-8", b"",
                 extra={"Location": result[1]},
+            )
+
+        def _send_413(self):
+            self.close_connection = True
+            self._send(
+                413, "text/plain; charset=utf-8",
+                b"413 Content Too Large\n",
             )
 
         do_PUT = _refuse

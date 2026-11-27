@@ -15,7 +15,7 @@ import importlib.resources as resources
 import json
 from pathlib import Path
 
-from .store import Store
+from .store import Store, _verify_next_seq
 
 
 def load_pack(pack_path):
@@ -131,10 +131,19 @@ def _read_json(fixture_dir, name):
         return json.load(f)
 
 
-def load_fixture(fixture_dir, db_path):
+def _fixture_pack_path(fixture_dir, name, allowed_roots):
+    path = (fixture_dir / name).resolve()
+    if not any(path.is_relative_to(root) for root in allowed_roots):
+        raise ValueError(f"fixture pack path {name!r} is outside the allowed pack roots")
+    return path
+
+
+def load_fixture(fixture_dir, db_path, pack_roots=()):
     """Build a fresh engagement database at db_path from a fixture directory.
 
     Returns the engagement id. Refuses to overwrite an existing database.
+    Pack paths must resolve inside the fixture directory, the installed
+    package, or one of the additional directories in pack_roots.
     """
     fixture_dir = Path(fixture_dir)
     db_path = Path(db_path)
@@ -142,16 +151,22 @@ def load_fixture(fixture_dir, db_path):
         raise FileExistsError(f"database already exists: {db_path}")
 
     engagement = _read_json(fixture_dir, "engagement.json")
-    pack = validate_pack(load_pack(fixture_dir / engagement["pack_file"]))
-    extra_packs = [
-        validate_pack(load_pack(fixture_dir / extra))
-        for extra in engagement.get("extra_pack_files", [])
+    allowed_roots = (
+        fixture_dir.resolve(), Path(__file__).resolve().parent,
+        *(Path(root).resolve() for root in pack_roots),
+    )
+    pack_paths = [
+        _fixture_pack_path(fixture_dir, name, allowed_roots)
+        for name in [engagement["pack_file"], *engagement.get("extra_pack_files", [])]
     ]
+    pack, *extra_packs = [validate_pack(load_pack(path)) for path in pack_paths]
     inventory = _read_json(fixture_dir, "inventory.json")
     coverage = _read_json(fixture_dir, "coverage.json")
     chains = _read_json(fixture_dir, "chains.json")
     fixes = _read_json(fixture_dir, "fixes.json")
     verify_next = _read_json(fixture_dir, "verify_next.json")
+    for item in verify_next["items"]:
+        item["seq"] = _verify_next_seq(item["seq"])
 
     # Cross-pack citations: a chain's control_pack or a fix's
     # rubric_pack_id overrides the primary pack, and must name a pack

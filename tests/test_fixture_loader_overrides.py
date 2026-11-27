@@ -87,7 +87,7 @@ class LoaderOverrideTest(unittest.TestCase):
 
     def load(self, fx):
         db = self.root / "eng.db"
-        load_fixture(fx, db)
+        load_fixture(fx, db, pack_roots=[self.root])
         store = Store(db)
         try:
             packs = [p["pack_id"] for p in store.list_packs()]
@@ -144,28 +144,28 @@ class LoaderOverrideTest(unittest.TestCase):
         fx = self.build([chain("A", "X-1", control_pack="no-such-pack")],
                         [fix("F-1", ["P-1"])])
         with self.assertRaisesRegex(ValueError, "no-such-pack"):
-            load_fixture(fx, self.root / "eng.db")
+            load_fixture(fx, self.root / "eng.db", pack_roots=[self.root])
         self.assertFalse((self.root / "eng.db").exists())
 
     def test_extra_pack_not_listed_is_unknown(self):
         fx = self.build([chain("A", "X-1", control_pack="test-extra-1.0")],
                         [fix("F-1", ["P-1"])], extra_packs=False)
         with self.assertRaisesRegex(ValueError, "test-extra-1.0"):
-            load_fixture(fx, self.root / "eng.db")
+            load_fixture(fx, self.root / "eng.db", pack_roots=[self.root])
         self.assertFalse((self.root / "eng.db").exists())
 
     def test_unknown_rubric_pack_id_refused(self):
         fx = self.build([chain("A", "P-1")],
                         [fix("F-1", ["X-1"], rubric_pack_id="no-such-pack")])
         with self.assertRaisesRegex(ValueError, "no-such-pack"):
-            load_fixture(fx, self.root / "eng.db")
+            load_fixture(fx, self.root / "eng.db", pack_roots=[self.root])
         self.assertFalse((self.root / "eng.db").exists())
 
     def test_control_pack_without_control_rubric_refused(self):
         fx = self.build([chain("A", control_pack="test-extra-1.0")],
                         [fix("F-1", ["P-1"])])
         with self.assertRaisesRegex(ValueError, "control_pack without control_rubric"):
-            load_fixture(fx, self.root / "eng.db")
+            load_fixture(fx, self.root / "eng.db", pack_roots=[self.root])
         self.assertFalse((self.root / "eng.db").exists())
 
 

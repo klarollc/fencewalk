@@ -19,6 +19,20 @@ import sqlite3
 
 EVIDENCE_LABELS = ("VERIFIED", "ON RECORD", "UNKNOWN")
 
+
+def _verify_next_seq(seq):
+    if type(seq) is int:
+        return seq
+    if isinstance(seq, str):
+        try:
+            number = int(seq)
+        except ValueError:
+            pass
+        else:
+            if str(number) == seq:
+                return number
+    raise ValueError("verify-next seq must be a canonical integer")
+
 UNSET = object()
 """Sentinel for update_entry_details date arguments: UNSET leaves a date
 unchanged, None clears it, a string sets it. (None cannot be the "leave
@@ -974,6 +988,7 @@ class Store:
     # -- verify-next ---------------------------------------------------------------
 
     def add_verify_next(self, engagement_id, seq, unknown_text, why, cheapest_check):
+        seq = _verify_next_seq(seq)
         self._ensure_migrated()
         self.conn.execute(
             "INSERT INTO verify_next (engagement_id, seq, unknown_text, why, cheapest_check)"

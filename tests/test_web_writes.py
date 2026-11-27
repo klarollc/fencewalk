@@ -9,6 +9,7 @@ methods, same history, same refusals.
 """
 
 import hashlib
+import http.client
 import threading
 import unittest
 import urllib.error
@@ -425,6 +426,31 @@ class ScoreDisciplineTest(unittest.TestCase):
                 self.assertEqual(store.list_coverage(PACK_ID), [])
             finally:
                 store.close()
+
+
+class PostBodyLimitTest(unittest.TestCase):
+    def test_oversized_post_refused_before_read_and_normal_write_lands(self):
+        with TemporaryDirectory() as tmp:
+            db_path = _scratch_db(tmp)
+            before = db_path.read_bytes()
+            served = Served(db_path)
+            with served as base:
+                path = "/entry/A1/label"
+                conn = http.client.HTTPConnection("127.0.0.1", served.port, timeout=5)
+                try:
+                    conn.request("POST", path, headers={"Content-Length": "1048577"})
+                    with conn.getresponse() as response:
+                        self.assertEqual(response.status, 413)
+                        response.read()
+                finally:
+                    conn.close()
+                self.assertEqual(db_path.read_bytes(), before)
+                status, _, _ = _request(
+                    base + path, method="POST",
+                    fields={"label": "VERIFIED", "from": "checklist"},
+                )
+                self.assertEqual(status, 303)
+            self.assertEqual(_entry(db_path, "A1")["label"], "VERIFIED")
 
 
 class OriginCheckTest(unittest.TestCase):

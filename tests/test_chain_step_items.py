@@ -173,7 +173,8 @@ class CreationTests(_Engagement):
         chains["chains"][0]["steps"][0]["item_id"] = "R-2.1"
         chains["chains"][0]["steps"][0]["item_pack"] = PACK
         chains_file.write_text(json.dumps(chains), encoding="utf-8")
-        db = self.load("annotated", fixture)
+        db = str(self.dir / "annotated.db")
+        self.ok(["load-fixture", str(fixture), db, "--pack-root", str(self.dir / "src")])
         key = chains["chains"][0]["chain_key"]
         self.assertEqual(self.steps(key, db)[0], (1, "R-2.1", PACK))
         self.assertTrue(all(i is None for _, i, _p in self.steps(key, db)[1:]))

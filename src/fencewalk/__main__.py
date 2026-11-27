@@ -176,7 +176,9 @@ def _entry_ids(store):
 
 
 def cmd_load_fixture(args):
-    eng_id = load_fixture(bundled_fixture_dir(args.fixture_dir), args.db_path)
+    eng_id = load_fixture(
+        bundled_fixture_dir(args.fixture_dir), args.db_path, pack_roots=args.pack_root,
+    )
     print(f"loaded fixture from {args.fixture_dir} into {args.db_path} (engagement {eng_id})")
     return 0
 
@@ -957,6 +959,10 @@ def build_parser():
     p_load = sub.add_parser("load-fixture", help="build an engagement database from a fixture directory")
     p_load.add_argument("fixture_dir")
     p_load.add_argument("db_path")
+    p_load.add_argument(
+        "--pack-root", action="append", default=[],
+        help="allow fixture pack files under this directory (repeatable)",
+    )
     p_load.set_defaults(func=cmd_load_fixture)
 
     p_report = sub.add_parser("report", help="render the Markdown engagement report from a database")
